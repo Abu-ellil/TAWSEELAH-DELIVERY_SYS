@@ -1,0 +1,193 @@
+{
+  "info": {
+    "name": "Delivery System - Stores",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Store",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"storeId\", jsonData.data.store._id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test Store\",\n  \"description\": \"A test store for API testing\",\n  \"category\": \"restaurant\",\n  \"location\": {\n    \"coordinates\": [35.123, 31.456],\n    \"address\": \"123 Test St\",\n    \"city\": \"Test City\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores"]
+        },
+        "description": "Create a new store"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Stores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores"]
+        },
+        "description": "Get all stores"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Store",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "{{storeId}}"]
+        },
+        "description": "Get a specific store"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Store",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Store Name\",\n  \"description\": \"Updated store description\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "{{storeId}}"]
+        },
+        "description": "Update a store"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Store",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/stores/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "{{storeId}}"]
+        },
+        "description": "Delete a store (soft delete)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Nearby Stores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/stores/nearby/31.456/35.123/10/km",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "nearby", "31.456", "35.123", "10", "km"]
+        },
+        "description": "Get stores near a location (lat, lng, distance, unit)"
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Store Logo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "logo",
+              "type": "file",
+              "src": "/path/to/logo.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores/{{storeId}}/upload-logo",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "{{storeId}}", "upload-logo"]
+        },
+        "description": "Upload store logo"
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Store Cover Image",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "coverImage",
+              "type": "file",
+              "src": "/path/to/cover.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/stores/{{storeId}}/upload-cover",
+          "host": ["{{baseUrl}}"],
+          "path": ["stores", "{{storeId}}", "upload-cover"]
+        },
+        "description": "Upload store cover image"
+      },
+      "response": []
+    }
+  ]
+}

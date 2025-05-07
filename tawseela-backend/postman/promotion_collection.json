@@ -1,0 +1,196 @@
+{
+  "info": {
+    "name": "Delivery System - Promotions",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Promotion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"promotionId\", jsonData.data.promotion._id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"TEST20\",\n  \"type\": \"percentage\",\n  \"value\": 20,\n  \"minOrderAmount\": 50,\n  \"maxDiscount\": 100,\n  \"startDate\": \"2023-01-01T00:00:00.000Z\",\n  \"endDate\": \"2023-12-31T23:59:59.999Z\",\n  \"description\": \"20% off on orders above $50\",\n  \"applicableStores\": [\"{{storeId}}\"],\n  \"userUsageLimit\": 1\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/promotions",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions"]
+        },
+        "description": "Create a new promotion"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Promotions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/promotions",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions"]
+        },
+        "description": "Get all promotions"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Promotion",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/promotions/{{promotionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "{{promotionId}}"]
+        },
+        "description": "Get a specific promotion"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Promotion",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"value\": 25,\n  \"description\": \"Updated: 25% off on orders above $50\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/promotions/{{promotionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "{{promotionId}}"]
+        },
+        "description": "Update a promotion"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Promotion",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/promotions/{{promotionId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "{{promotionId}}"]
+        },
+        "description": "Delete a promotion"
+      },
+      "response": []
+    },
+    {
+      "name": "Verify Promotion Code",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"code\": \"TEST20\",\n  \"storeId\": \"{{storeId}}\",\n  \"orderAmount\": 100\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/promotions/verify",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "verify"]
+        },
+        "description": "Verify a promotion code"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Active Promotions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/promotions/active",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "active"]
+        },
+        "description": "Get all active promotions"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Store Promotions",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/promotions/store/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["promotions", "store", "{{storeId}}"]
+        },
+        "description": "Get all promotions for a specific store"
+      },
+      "response": []
+    }
+  ]
+}

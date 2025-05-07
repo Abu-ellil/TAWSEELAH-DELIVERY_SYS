@@ -1,0 +1,194 @@
+{
+  "info": {
+    "name": "Delivery System - Drivers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Update Driver Status",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"available\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/drivers/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "status"]
+        },
+        "description": "Update driver status (available, busy, offline)"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Driver Location",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"coordinates\": [35.123, 31.456]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/drivers/location",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "location"]
+        },
+        "description": "Update driver location"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/drivers/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "profile"]
+        },
+        "description": "Get driver profile"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Driver Profile",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"vehicleType\": \"motorcycle\",\n  \"vehiclePlate\": \"ABC123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/drivers/profile",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "profile"]
+        },
+        "description": "Update driver profile"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Statistics",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/drivers/statistics",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "statistics"]
+        },
+        "description": "Get driver statistics"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Nearby Drivers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/drivers/nearby?lat=31.456&lng=35.123&distance=5",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "nearby"],
+          "query": [
+            {
+              "key": "lat",
+              "value": "31.456"
+            },
+            {
+              "key": "lng",
+              "value": "35.123"
+            },
+            {
+              "key": "distance",
+              "value": "5"
+            }
+          ]
+        },
+        "description": "Get nearby available drivers"
+      },
+      "response": []
+    },
+    {
+      "name": "Upload Driver Documents",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "idCard",
+              "type": "file",
+              "src": "/path/to/id.jpg"
+            },
+            {
+              "key": "drivingLicense",
+              "type": "file",
+              "src": "/path/to/license.jpg"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/drivers/documents",
+          "host": ["{{baseUrl}}"],
+          "path": ["drivers", "documents"]
+        },
+        "description": "Upload driver documents"
+      },
+      "response": []
+    }
+  ]
+}

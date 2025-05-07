@@ -1,0 +1,234 @@
+{
+  "info": {
+    "name": "Delivery System - Orders",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Order",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"orderId\", jsonData.data.order._id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"store\": \"{{storeId}}\",\n  \"items\": [\n    {\n      \"product\": \"{{productId}}\",\n      \"quantity\": 2,\n      \"price\": 9.99,\n      \"options\": [\n        {\n          \"name\": \"Size\",\n          \"choice\": \"Large\",\n          \"price\": 2\n        }\n      ]\n    }\n  ],\n  \"deliveryAddress\": {\n    \"address\": \"123 Test St\",\n    \"city\": \"Test City\",\n    \"coordinates\": [35.123, 31.456]\n  },\n  \"paymentMethod\": \"cash\",\n  \"notes\": \"Test order notes\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders"]
+        },
+        "description": "Create a new order"
+      },
+      "response": []
+    },
+    {
+      "name": "Get My Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/my-orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "my-orders"]
+        },
+        "description": "Get all orders for the current user"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Order",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}"]
+        },
+        "description": "Get a specific order"
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Order",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/cancel",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "cancel"]
+        },
+        "description": "Cancel an order"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Store Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/store/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "store", "{{storeId}}"]
+        },
+        "description": "Get all orders for a specific store"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order Status (Store)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{storeOwnerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"accepted\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "status"]
+        },
+        "description": "Update order status (accepted, preparing, ready, rejected)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Available Orders (Driver)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/available",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "available"]
+        },
+        "description": "Get all available orders for drivers"
+      },
+      "response": []
+    },
+    {
+      "name": "Assign Driver to Order",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/assign-driver",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "assign-driver"]
+        },
+        "description": "Assign current driver to an order"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order Status (Driver)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"picked-up\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/orders/{{orderId}}/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "{{orderId}}", "status"]
+        },
+        "description": "Update order status (picked-up, on-the-way, delivered)"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Driver Orders",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{driverToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/orders/driver",
+          "host": ["{{baseUrl}}"],
+          "path": ["orders", "driver"]
+        },
+        "description": "Get all orders assigned to the current driver"
+      },
+      "response": []
+    }
+  ]
+}

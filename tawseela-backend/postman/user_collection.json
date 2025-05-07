@@ -1,0 +1,250 @@
+{
+  "info": {
+    "name": "Delivery System - Users",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get My Profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "me"]
+        },
+        "description": "Get current user profile"
+      },
+      "response": []
+    },
+    {
+      "name": "Update My Profile",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Name\",\n  \"phone\": \"9876543210\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/me",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "me"]
+        },
+        "description": "Update current user profile"
+      },
+      "response": []
+    },
+    {
+      "name": "Change Password",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newpassword123\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/update-password",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "update-password"]
+        },
+        "description": "Change user password"
+      },
+      "response": []
+    },
+    {
+      "name": "Add Address",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var jsonData = pm.response.json();",
+              "pm.environment.set(\"addressId\", jsonData.data.address._id);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Home\",\n  \"address\": \"123 Main St\",\n  \"city\": \"Test City\",\n  \"coordinates\": [35.123, 31.456],\n  \"isDefault\": true\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/addresses",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "addresses"]
+        },
+        "description": "Add a new address"
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Addresses",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/addresses",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "addresses"]
+        },
+        "description": "Get all user addresses"
+      },
+      "response": []
+    },
+    {
+      "name": "Update Address",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Updated Home\",\n  \"address\": \"456 New St\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/addresses/{{addressId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "addresses", "{{addressId}}"]
+        },
+        "description": "Update an address"
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Address",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/addresses/{{addressId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "addresses", "{{addressId}}"]
+        },
+        "description": "Delete an address"
+      },
+      "response": []
+    },
+    {
+      "name": "Add Favorite Store",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"storeId\": \"{{storeId}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/users/favorites",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "favorites"]
+        },
+        "description": "Add a store to favorites"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Favorite Stores",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/favorites",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "favorites"]
+        },
+        "description": "Get all favorite stores"
+      },
+      "response": []
+    },
+    {
+      "name": "Remove Favorite Store",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{customerToken}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/users/favorites/{{storeId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "favorites", "{{storeId}}"]
+        },
+        "description": "Remove a store from favorites"
+      },
+      "response": []
+    }
+  ]
+}

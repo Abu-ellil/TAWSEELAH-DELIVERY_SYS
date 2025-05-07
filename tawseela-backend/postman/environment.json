@@ -1,0 +1,67 @@
+{
+  "id": "delivery-system-environment",
+  "name": "Delivery System Environment",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api/v1",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "customerToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "storeOwnerToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "driverToken",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "storeId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "productId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "orderId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "addressId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "promotionId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "conversationId",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}
